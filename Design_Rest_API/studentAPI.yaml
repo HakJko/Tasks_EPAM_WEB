@@ -1,0 +1,326 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Simple Students API
+  description: A simple API
+
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/HakJko/StrudentsRest/1.0.0
+  - url: https://example.io/ik/reststudents/v1
+
+security:
+  - BasicAuth: []
+
+paths:
+  /group:
+    post:
+      operationId: addGroup
+      description: Create a new group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Group'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Group'
+      responses:
+        '200':
+          description: Successful created a new group
+        '400':
+          $ref: '#/components/responses/400Error'
+        '405':
+          description: Invalid input
+
+    put:
+      operationId: updateGroup
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Group not found
+        '405':
+          description: Validation exception
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Group'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Group'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Group'
+
+    get:
+      description: Returns a list of group
+      parameters:
+        - name: limit
+          in: query
+          description: Limits the number of items on a page
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Specifies the page number of the groups to be displayed
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response returned a list of group
+          content:
+            application/yaml:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    groupName:
+                      type: string
+                    studentsList:
+                      type: array
+                      items:
+                        type: object
+        '400':
+          description: Invalid request
+          content:
+            application/yaml:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+
+
+
+  /group/{groupId}:
+    get:
+      description: Obtain information about an goup from her unique groupId
+      parameters:
+        - name: groupId
+          in: path
+          required: true
+          schema:
+            type: integer
+
+      responses:
+        '200':
+          description: Successfully returned an group
+          content:
+            application/yaml:
+              schema:
+                type: object
+                properties:
+                  groupName:
+                    type: string
+                  studentsList:
+                    type: array
+                    items:
+                      type: object
+
+        '400':
+          description: Invalid request
+          content:
+            application/yaml:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+    delete:
+      operationId: deleteGroup
+      parameters:
+        - name: api_key
+          in: header
+          required: false
+          schema:
+            type: string
+        - name: groupId
+          in: path
+          description: Group id to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Group not found
+
+
+  /group/student:
+    post:
+      description: Create a new student
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Student'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Student'
+      responses:
+        '200':
+          description: Successful created a new student
+        '400':
+          $ref: '#/components/responses/400Error'
+
+    put:
+      operationId: updateStudent
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Student not found
+        '405':
+          description: Validation exception
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Student'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Student'
+          application/yaml:
+            schema:
+              $ref: '#/components/schemas/Student'
+
+    get:
+      description: Returns a list of student
+      parameters:
+        - name: limit
+          in: query
+          description: Limits the number of items on a page
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Specifies the page number of the students to be displayed
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response returned a list of students
+          content:
+            application/yaml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Student'
+        '400':
+          description: Invalid request
+          content:
+            application/yaml:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+
+  /group/student/{studentId}:
+    get:
+      description: Obtain information about an student from his unique studentId
+      parameters:
+        - name: studentId
+          in: path
+          required: true
+          schema:
+            type: string
+
+      responses:
+        '200':
+          description: Successfully returned an student
+          content:
+            application/yaml:
+              schema:
+                $ref: '#/components/schemas/Student'
+
+        '400':
+          $ref: '#/components/responses/400Error'
+
+    delete:
+      operationId: deleteStudent
+      parameters:
+        - name: api_key
+          in: header
+          required: false
+          schema:
+            type: string
+        - name: studentId
+          in: path
+          description: Group id to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Student not found
+
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+  schemas:
+    Group:
+      type: object
+      properties:
+        groupId:
+          type: integer
+        groupName:
+          type: string
+        studentsList:
+          type: object
+    Student:
+      type: object
+      properties:
+        studentId:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        marks:
+          type: array
+          items:
+            type: integer
+
+  parameters:
+    PageLimit:
+      name: limit
+      in: query
+      description: Limits the number of items on a page
+      schema:
+        type: integer
+
+    PageOffset:
+      name: offset
+      in: query
+      description: Specifies the page number of the groups to be displayed
+      schema:
+        type: integer
+
+  responses:
+    400Error:
+      description: Invalid request
+      content:
+        application/yaml:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
