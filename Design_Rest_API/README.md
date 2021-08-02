@@ -42,6 +42,24 @@ To accomplish this task, it was decided to create an application containing stud
   getStudentList() - returns a list of student
   getStudentById(Integer studentId) - getting a student by its ID
   deleteStudentById(Integer studentId) - deleting a student by its id
+
+###### Testing
+
+<h2>
+   <img src="testingscreens/post1.PNG" width="1000">
+</h2>
+<h2>
+   <img src="testingscreens/getAll1.PNG" width="1000">
+</h2>
+<h2>
+   <img src="testingscreens/getById.PNG" width="1000">
+</h2>
+<h2>
+   <img src="testingscreens/put1.PNG" width="1000">
+</h2>
+<h2>
+   <img src="testingscreens/delete.PNG" width="1000">
+</h2>
   
 ###### Design REST
 
