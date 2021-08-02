@@ -18,7 +18,11 @@ The goal of the task is to create a java application, develop and describe the R
 
 ***
 
-## Solution(check project studentAPI in Design_Rest_API and studentAPI.yaml)
+# Two solutions to this problem will be presented here. 1 using swagger, 2 using the tools provided by java
+
+## Solution 1 (check project(students in group) studentAPI in Design_Rest_API and studentAPI.yaml)
+
+> Only swagger will be used to complete the task
 
 To accomplish this task, it was decided to create an application containing students in groups
 
@@ -42,27 +46,20 @@ To accomplish this task, it was decided to create an application containing stud
   getStudentList() - returns a list of student
   getStudentById(Integer studentId) - getting a student by its ID
   deleteStudentById(Integer studentId) - deleting a student by its id
-
-###### Testing
-
-<h2>
-   <img src="testingscreens/post1.PNG" width="1000">
-</h2>
-<h2>
-   <img src="testingscreens/getAll1.PNG" width="1000">
-</h2>
-<h2>
-   <img src="testingscreens/getById.PNG" width="1000">
-</h2>
-<h2>
-   <img src="testingscreens/put1.PNG" width="1000">
-</h2>
-<h2>
-   <img src="testingscreens/delete.PNG" width="1000">
-</h2>
   
 ###### Design REST
+```
+1. GET /students   ---- collections
+2. GET /students?limit=100   ---- limit
+3. GET /students?pagination=true  ---- pagination
 
+    api_platform:
+      defaults:
+        pagination_client_items_per_page: true
+      collection:
+        pagination:
+          items_per_page_parameter_name: itemsPerPage   
+```
 ```
   get:
     description: Returns a list of student
@@ -98,6 +95,28 @@ To accomplish this task, it was decided to create an application containing stud
           schema:
             type: string
 ```
+
+## Solution 2 (check project Design_Rest_API(only students))
+
+Spring Bolt, Java SE, JCF, Postman will be used to perform the task
+
+###### Testing
+
+<h2>
+   <img src="testingscreens/post1.PNG" width="1000">
+</h2>
+<h2>
+   <img src="testingscreens/getAll1.PNG" width="1000">
+</h2>
+<h2>
+   <img src="testingscreens/getById.PNG" width="1000">
+</h2>
+<h2>
+   <img src="testingscreens/put1.PNG" width="1000">
+</h2>
+<h2>
+   <img src="testingscreens/delete.PNG" width="1000">
+</h2>
   
 ### Materials and websites, used on the topic:
 
@@ -112,3 +131,4 @@ To accomplish this task, it was decided to create an application containing stud
 - [Swagger/OpenAPI Specification](https://habr.com/ru/company/jugru/blog/525298/)
 - [Create API in JAVA with Swagger](https://habr.com/ru/post/536388/)
 - [REST API Best Practices](https://habr.com/ru/post/351890/)
+- [Design for task](https://api-platform.com/docs/core/pagination/)

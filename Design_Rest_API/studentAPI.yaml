@@ -38,6 +38,13 @@ paths:
 
     put:
       operationId: updateGroup
+      parameters:
+        - name: groupId
+          in: path
+          description: group that need to be updated
+          required: true
+          schema:
+            type: integer
       responses:
         '400':
           description: Invalid ID supplied
@@ -177,6 +184,13 @@ paths:
 
     put:
       operationId: updateStudent
+      parameters:
+          - name: studentId
+            in: path
+            description: student that need to be updated
+            required: true
+            schema:
+              type: integer
       responses:
         '400':
           description: Invalid ID supplied
