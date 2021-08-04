@@ -5,8 +5,8 @@
 ***
 
 Tasks and their solutions for the following modules will be presented here: 
-- Web basic 
-- Java Web Application Basics
+- Web basic (Design Rest API)
+- Java Web Application Basics (Servlets and JSP)
 - Spring Core
 - Spring MVC
 - Spring Loading
