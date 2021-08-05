@@ -18,5 +18,7 @@ As part of this task, two applications were developed
 
 ###### Materials
 
+- [17 Java Servlet Technology](https://docs.oracle.com/javaee/7/tutorial/servlets.htm) 
 - [Introduction to Servlets](https://metanit.com/java/javaee/4.1.php) 
 - [Introduction to Java EE](https://javarush.ru/groups/posts/2637-vvedenie-v-java-ee)
+
