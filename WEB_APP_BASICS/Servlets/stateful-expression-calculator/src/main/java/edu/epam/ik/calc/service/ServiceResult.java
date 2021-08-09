@@ -1,24 +1,16 @@
-package edu.epam.ik.calc;
+package edu.epam.ik.calc.service;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/calc/result"})
-public class ResultServlet extends HttpServlet {
+public class ServiceResult {
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-        PrintWriter writer = resp.getWriter();
-        HttpSession session = req.getSession();
+    public static String processingRequest(HttpSession session, HttpServletResponse resp)
+            throws IOException {
         String expression = (String) session.getAttribute("expression");
+        String result = "";
         if (expression == null) {
             resp.sendError(409, "The expression is missing");
         } else {
@@ -41,7 +33,7 @@ public class ResultServlet extends HttpServlet {
 
 
             List<String> list = Calculator.processingExpression(output.toString());
-            String result = list.get(0);
+            result = list.get(0);
 
             for (int i = list.size() - 1; i > 0; i--) {
                 String s1 = list.get(i);
@@ -55,17 +47,10 @@ public class ResultServlet extends HttpServlet {
             }
             result = result.replaceAll("[()<>]", "");
 
-            try {
-                writer.print(Calculator.calculateExpression(result));
-                resp.setStatus(200);
-                writer.close();
-            } catch (Exception e) {
-                resp.sendError(409, "The expression is missing");
-            }
+
         }
 
-
+        return result;
     }
-
 
 }

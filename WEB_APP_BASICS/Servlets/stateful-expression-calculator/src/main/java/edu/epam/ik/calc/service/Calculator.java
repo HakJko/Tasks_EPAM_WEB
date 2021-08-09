@@ -1,4 +1,4 @@
-package edu.epam.ik.calc;
+package edu.epam.ik.calc.service;
 
 import java.util.ArrayList;
 import java.util.List;

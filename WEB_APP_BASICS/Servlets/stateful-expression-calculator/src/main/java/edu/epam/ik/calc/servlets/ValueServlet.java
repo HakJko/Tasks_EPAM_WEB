@@ -1,4 +1,6 @@
-package edu.epam.ik.calc;
+package edu.epam.ik.calc.servlets;
+
+import edu.epam.ik.calc.service.Validation;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,25 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/calc/expression"})
-public class ExpressionServlet extends HttpServlet {
+import static edu.epam.ik.calc.service.Status.getStatusValue;
+
+@WebServlet(urlPatterns = {"/calc/*"})
+public class ValueServlet extends HttpServlet {
+
+    private static final int STATUS_204 = 204;
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         HttpSession session = req.getSession();
-        String expression = req.getReader().readLine();
-        if (Validation.validationExpression(expression)) {
-            if (session.getAttribute("expression") == null) {
-                resp.setStatus(201);
-            }
-            else {
-                resp.setStatus(200);
-            }
-            session.setAttribute("expression", expression);
-        } else {
-            resp.sendError(400, "Wrong Format");
-        }
+
+        getStatusValue(session, req, resp);
 
     }
 
@@ -34,9 +30,8 @@ public class ExpressionServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         HttpSession session = req.getSession();
-        session.setAttribute("expression", null);
-        resp.setStatus(204);
+        String str = req.getRequestURI().substring(6);
+        session.setAttribute(str, null);
+        resp.setStatus(STATUS_204);
     }
-
-
 }

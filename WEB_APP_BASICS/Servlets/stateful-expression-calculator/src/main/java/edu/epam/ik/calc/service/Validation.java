@@ -1,6 +1,9 @@
-package edu.epam.ik.calc;
+package edu.epam.ik.calc.service;
 
 public class Validation {
+
+    private static final int MIN_RANGE = -10000;
+    private static final int MAX_RANGE = 10000;
 
     public static boolean validationExpression(String s) {
         for (int i = 0; i < s.length() - 1; i++) {
@@ -19,7 +22,7 @@ public class Validation {
 
 //      403
         int value = Integer.parseInt(s);
-        return value >= -10000 && value <= 10000;
+        return value >= MIN_RANGE && value <= MAX_RANGE;
 
     }
 

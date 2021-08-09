@@ -1,15 +1,10 @@
-package edu.epam.ik.calc;
+package edu.epam.ik.calc.servlets;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
+import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import javax.servlet.ServletResponse;
-import javax.servlet.FilterChain;
 
 @WebFilter(urlPatterns = {"/calc/result"})
 public class FilterServlet implements Filter {
