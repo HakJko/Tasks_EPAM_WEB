@@ -16,9 +16,6 @@ import static edu.epam.ik.calc.service.ServiceResult.processingRequest;
 @WebServlet(urlPatterns = {"/calc/result"})
 public class ResultServlet extends HttpServlet {
 
-    private static final int STATUS_200 = 200;
-    private static final int STATUS_409 = 409;
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -27,10 +24,10 @@ public class ResultServlet extends HttpServlet {
         String result = processingRequest(session, resp);
         try {
             writer.print(Calculator.calculateExpression(result));
-            resp.setStatus(STATUS_200);
+            resp.setStatus(HttpServletResponse.SC_OK);
             writer.close();
         } catch (Exception e) {
-            resp.sendError(STATUS_409, "The expression is missing");
+            resp.sendError(HttpServletResponse.SC_CONFLICT, "The expression is missing");
         }
 
 

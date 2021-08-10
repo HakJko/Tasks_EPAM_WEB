@@ -13,12 +13,6 @@ import java.io.IOException;
 @WebServlet(urlPatterns = {"/calc/expression"})
 public class ExpressionServlet extends HttpServlet {
 
-    private static final int STATUS_200 = 200;
-    private static final int STATUS_201 = 201;
-    private static final int STATUS_204 = 204;
-    private static final int STATUS_400 = 400;
-    private static final int STATUS_403 = 403;
-
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -27,13 +21,13 @@ public class ExpressionServlet extends HttpServlet {
 
         if (Validation.validationExpression(expression)) {
             if (session.getAttribute("expression") == null) {
-                resp.setStatus(STATUS_201);
+                resp.setStatus(HttpServletResponse.SC_CREATED);
             } else {
-                resp.setStatus(STATUS_200);
+                resp.setStatus(HttpServletResponse.SC_OK);
             }
             session.setAttribute("expression", expression);
         } else {
-            resp.sendError(STATUS_400, "Wrong Format");
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong Format");
         }
 
     }
@@ -43,7 +37,7 @@ public class ExpressionServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = req.getSession();
         session.setAttribute("expression", null);
-        resp.setStatus(STATUS_204);
+        resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
     }
 
 

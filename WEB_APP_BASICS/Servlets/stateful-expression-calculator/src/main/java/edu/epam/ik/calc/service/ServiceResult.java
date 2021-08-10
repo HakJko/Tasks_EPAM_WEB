@@ -15,7 +15,7 @@ public final class ServiceResult {
         String expression = (String) session.getAttribute("expression");
         String result = "";
         if (expression == null) {
-            resp.sendError(409, "The expression is missing");
+            resp.sendError(HttpServletResponse.SC_CONFLICT, "The expression is missing");
         } else {
             expression = expression.replaceAll(" ", "");
             StringBuilder output = new StringBuilder();

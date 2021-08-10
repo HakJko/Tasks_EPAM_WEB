@@ -28,13 +28,13 @@ public class ValueServlet extends HttpServlet {
 
         if (Validation.validationVariable(value)) {
             if (session.getAttribute(str) == null) {
-                resp.setStatus(STATUS_201);
+                resp.setStatus(HttpServletResponse.SC_CREATED);
             } else {
-                resp.setStatus(STATUS_200);
+                resp.setStatus(HttpServletResponse.SC_OK);
             }
             session.setAttribute(str, value);
         } else {
-            resp.setStatus(STATUS_403);
+            resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
 
     }
@@ -45,6 +45,6 @@ public class ValueServlet extends HttpServlet {
         HttpSession session = req.getSession();
         String str = req.getRequestURI().substring(6);
         session.setAttribute(str, null);
-        resp.setStatus(STATUS_204);
+        resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
     }
 }
