@@ -1,9 +1,13 @@
 package edu.epam.ik.calc.service;
 
-public class Validation {
+public final class Validation {
 
     private static final int MIN_RANGE = -10000;
     private static final int MAX_RANGE = 10000;
+
+    private Validation() {
+
+    }
 
     public static boolean validationExpression(String s) {
         for (int i = 0; i < s.length() - 1; i++) {

@@ -5,7 +5,10 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-public class ServiceResult {
+public final class ServiceResult {
+
+    private ServiceResult() {
+    }
 
     public static String processingRequest(HttpSession session, HttpServletResponse resp)
             throws IOException {

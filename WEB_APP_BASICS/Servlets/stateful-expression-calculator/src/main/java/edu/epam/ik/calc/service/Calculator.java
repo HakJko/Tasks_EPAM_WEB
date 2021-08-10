@@ -3,7 +3,10 @@ package edu.epam.ik.calc.service;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Calculator {
+public final class Calculator {
+
+    private Calculator() {
+    }
 
     public static List<String> processingExpression(String mathExpression) {
         List<String> stringParts = new ArrayList<>();
@@ -71,8 +74,7 @@ public class Calculator {
             } else if (c == '-') {
                 if (i != 0 && Character.isDigit(s.charAt(i - 1))) {
                     output.append(space).append(c).append(space);
-                }
-                else {
+                } else {
                     output.append(c);
                 }
             } else {
@@ -108,7 +110,7 @@ public class Calculator {
     private static void overwriting(String[] arrStr, int position) {
         if (arrStr.length - (position + 2) >= 0) {
             System.arraycopy(arrStr, position + 2,
-                             arrStr, position, arrStr.length - (position + 2));
+                    arrStr, position, arrStr.length - (position + 2));
         }
     }
 
