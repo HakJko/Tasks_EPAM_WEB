@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                             http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.0">
+    <display-name>Web Application by Ihar Koshman</display-name>
+
+    <servlet>
+        <servlet-name>CurrenciesServlet</servlet-name>
+        <servlet-class>com.epam.rd.jsp.servlets.CurrenciesServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CurrenciesServlet</servlet-name>
+        <url-pattern>/Currencies</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ExchangeRatesServlet</servlet-name>
+        <servlet-class>com.epam.rd.jsp.servlets.ExchangeRatesServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ExchangeRatesServlet</servlet-name>
+        <url-pattern>/ExchangeRates</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ConvertServlet</servlet-name>
+        <servlet-class>com.epam.rd.jsp.servlets.ConvertServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ConvertServlet</servlet-name>
+        <url-pattern>/Convert</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>currencies.jsp</welcome-file>
+        <welcome-file>exchangeRates.jsp</welcome-file>
+        <welcome-file>convert.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
