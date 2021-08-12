@@ -17,6 +17,7 @@
 <html>
     <head>
         <title>Exchange Rates for "${sourceCurrency}"</title>
+        <link href="/css/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <h1>Exchange Rates for "${sourceCurrency}"</h1>

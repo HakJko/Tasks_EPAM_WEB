@@ -17,6 +17,7 @@
 <html>
     <head>
         <title>Converting "${sourceCurrency}" to "${targetCurrency}"</title>
+        <link href="/css/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <h1>Converting "${sourceCurrency}" to "${targetCurrency}"</h1>
