@@ -2,14 +2,19 @@ package com.epam.rd.autotasks.confbeans.config;
 
 import com.epam.rd.autotasks.confbeans.video.Channel;
 import com.epam.rd.autotasks.confbeans.video.Video;
+import com.epam.rd.autotasks.confbeans.video.impl.VideoStudioBoilWaterImpl;
+import com.epam.rd.autotasks.confbeans.video.impl.VideoStudioBuildHouseImpl;
+import com.epam.rd.autotasks.confbeans.video.impl.VideoStudioEscapeSolitudeImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
-import java.time.LocalDateTime;
-
 @Configuration
 public class SingletonChannelWithPrototypeVideosConfig {
+
+    private static VideoStudioBoilWaterImpl boilWater = new VideoStudioBoilWaterImpl();
+    private static VideoStudioBuildHouseImpl buildHouse = new VideoStudioBuildHouseImpl();
+    private static VideoStudioEscapeSolitudeImpl escapeSolitude = new VideoStudioEscapeSolitudeImpl();
 
     @Bean
     public Channel getBeanChanel() {
@@ -23,25 +28,19 @@ public class SingletonChannelWithPrototypeVideosConfig {
     @Bean("video1")
     @Scope("prototype")
     public Video getBeanBoilWater() {
-        LocalDateTime date = LocalDateTime.of(2020, 10, 10, 10, 10);
-        String nameVideo = "How to boil water";
-        return new Video(nameVideo, date);
+        return boilWater.produce();
     }
 
     @Bean
     @Scope("prototype")
     public Video getBeanBuildHouse() {
-        LocalDateTime date = LocalDateTime.of(2020, 10, 10, 10, 11);
-        String nameVideo = "How to build a house";
-        return new Video(nameVideo, date);
+        return buildHouse.produce();
     }
 
     @Bean
     @Scope("prototype")
     public Video getBeanEscapeSolitude() {
-        LocalDateTime date = LocalDateTime.of(2020, 10, 10, 10, 12);
-        String nameVideo = "How to escape solitude";
-        return new Video(nameVideo, date);
+        return escapeSolitude.produce();
     }
 
 

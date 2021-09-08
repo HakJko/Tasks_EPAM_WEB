@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 @Configuration
 public class ChannelWithVideoStudioConfig {
 
-    private static final String FRANCHISE = "Cat & Curious ";
-    private static final int NUMBER_FILMS_FRANCHISE = 8;
+    public static final String FRANCHISE = "Cat & Curious ";
+    public static final int NUMBER_FILMS_FRANCHISE = 8;
     private static int episode = 1;
     private static LocalDateTime release = LocalDateTime.of(2001, 10, 18, 10, 0);
     private static Channel channelBean = new Channel();
