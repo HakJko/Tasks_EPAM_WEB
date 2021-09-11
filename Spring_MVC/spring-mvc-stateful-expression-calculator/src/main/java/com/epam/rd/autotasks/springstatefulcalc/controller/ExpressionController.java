@@ -4,10 +4,7 @@ import com.epam.rd.autotasks.springstatefulcalc.service.Validation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -17,7 +14,8 @@ import java.io.IOException;
 public class ExpressionController {
 
     @PutMapping("/expression")
-    public ResponseEntity putExpression(@RequestBody String expression, HttpSession session)
+    public ResponseEntity putExpression(@RequestBody String expression,
+                                        HttpSession session)
             throws IOException {
 
         if (Validation.validationExpression(expression)) {
@@ -39,8 +37,9 @@ public class ExpressionController {
     }
 
     @DeleteMapping
-    public ResponseEntity deleteExpression(HttpSession session) {
-        session.setAttribute("expression", null);
+    public ResponseEntity deleteExpression(@RequestBody String body,
+                                           HttpSession session) {
+        session.setAttribute(body, null);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }
