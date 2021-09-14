@@ -20,20 +20,14 @@ public class ExpressionController {
 
         if (Validation.validationExpression(expression)) {
             if (session.getAttribute("expression") == null) {
-                addExpressionToSession(session, expression);
-
+                session.setAttribute("expression", expression);
                 return new ResponseEntity(HttpStatus.CREATED);
             } else {
-                addExpressionToSession(session, expression);
-
+                session.setAttribute("expression", expression);
                 return new ResponseEntity(HttpStatus.OK);
             }
         }
         return new ResponseEntity("Wrong Format", HttpStatus.BAD_REQUEST);
-    }
-
-    private void addExpressionToSession(HttpSession session, String expression) {
-        session.setAttribute("expression", expression);
     }
 
     @DeleteMapping

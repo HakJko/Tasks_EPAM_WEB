@@ -8,9 +8,7 @@ public final class Validation {
     private static final int MIN_RANGE = -10000;
     private static final int MAX_RANGE = 10000;
 
-    private Validation() {
-
-    }
+    private Validation() {}
 
     public static boolean validationExpression(String s) {
         for (int i = 0; i < s.length() - 1; i++) {
@@ -26,10 +24,8 @@ public final class Validation {
         if (s.charAt(0) >= 'a' && s.length() == 1 && s.charAt(0) <= 'z') {
             return true;
         }
-
         int value = Integer.parseInt(s);
         return value >= MIN_RANGE && value <= MAX_RANGE;
-
     }
 
 

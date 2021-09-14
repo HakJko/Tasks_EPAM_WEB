@@ -26,10 +26,8 @@ public class ResultController {
         try {
             writer.print(Calc.calculateExpression(result));
             writer.close();
-
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
-
             return new ResponseEntity(HttpStatus.CONFLICT);
         }
     }

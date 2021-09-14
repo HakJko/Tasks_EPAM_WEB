@@ -14,7 +14,6 @@ public final class Result {
     public static String processingRequest(HttpSession session) {
         String expression = (String) session.getAttribute("expression");
         String result;
-
         expression = expression.replaceAll(" ", "");
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < expression.length(); i++) {
@@ -32,7 +31,6 @@ public final class Result {
             }
         }
 
-
         List<String> list = Calc.processingExpression(output.toString());
         result = list.get(0);
 
@@ -47,7 +45,6 @@ public final class Result {
             }
         }
         result = result.replaceAll("[()<>]", "");
-
 
         return result;
     }

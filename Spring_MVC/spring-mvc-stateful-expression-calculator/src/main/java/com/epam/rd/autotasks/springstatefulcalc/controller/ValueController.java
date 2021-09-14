@@ -20,26 +20,18 @@ public class ValueController {
     @PutMapping
     public ResponseEntity putValue(@PathVariable("*") String str, ServletRequest req, HttpSession session)
             throws IOException {
-
         String value = req.getReader().readLine();
-
         if (Validation.validationVariable(value)) {
             if (session.getAttribute(str) == null) {
-                addStrValueToSession(session, str, value);
-
+                session.setAttribute(str, value);
                 return new ResponseEntity(HttpStatus.CREATED);
             } else {
-                addStrValueToSession(session, str, value);
-
+                session.setAttribute(str, value);
                 return new ResponseEntity(HttpStatus.OK);
             }
         }
         return new ResponseEntity(HttpStatus.FORBIDDEN);
 
-    }
-
-    private void addStrValueToSession(HttpSession session, String str, String value) {
-        session.setAttribute(str, value);
     }
 
     @DeleteMapping
