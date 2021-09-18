@@ -35,14 +35,14 @@ public class ServiceFactory {
         }
     }
 
-    List<Employee> getAllEmployees(String query) {
-        return new MapperFactory().employeesMapper(false).mapping(
+    public List<Employee> getAllEmployees(String query, Boolean isChain) {
+        return new MapperFactory().employeesMapper(isChain).mapping(
                 executeQueryVia(query)
         );
     }
 
-    List<Employee> getAllEmployeesWithChain(String query) {
-        return new MapperFactory().employeesMapper(true).mapping(
+    List<Employee> getAllEmployeesWithChain(String query, Boolean isChain) {
+        return new MapperFactory().employeesMapper(isChain).mapping(
                 executeQueryVia(query)
         );
     }
@@ -50,13 +50,13 @@ public class ServiceFactory {
     List<Employee> getEmployeesByDepartment(String query, String department) {
         String regex = "\\d+";
         if (department.matches(regex)) {
-            return getAllEmployees(query)
+            return getAllEmployees(query, false)
                     .stream()
                     .filter(employee -> employee.getDepartment() != null &&
                             employee.getDepartment().getId().equals(Long.parseLong(department)))
                     .collect(Collectors.toList());
         } else {
-            return getAllEmployees(query)
+            return getAllEmployees(query, false)
                     .stream()
                     .filter(employee -> employee.getDepartment() != null &&
                             employee.getDepartment().getName().equals(department))
@@ -65,14 +65,14 @@ public class ServiceFactory {
     }
 
     List<Employee> getEmployeesByManager(String query, Long managerId) {
-        return getAllEmployees(query)
+        return getAllEmployees(query, false)
                 .stream()
                 .filter(employee -> employee.getManager() != null
                         && employee.getManager().getId().equals(managerId))
                 .collect(Collectors.toList());
     }
 
-    List<Employee> employeePaging(List<Employee> employees, Paging paging) {
+    public List<Employee> employeePaging(List<Employee> employees, Paging paging) {
         List<Employee> employeesPage = new ArrayList<>();
         int indexPaging = paging.page * paging.itemPerPage;
         int numberOfEmployees = employees.size();

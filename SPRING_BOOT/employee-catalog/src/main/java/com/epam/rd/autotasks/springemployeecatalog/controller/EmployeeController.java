@@ -2,6 +2,7 @@ package com.epam.rd.autotasks.springemployeecatalog.controller;
 
 import com.epam.rd.autotasks.springemployeecatalog.domain.Employee;
 import com.epam.rd.autotasks.springemployeecatalog.domain.Paging;
+import com.epam.rd.autotasks.springemployeecatalog.factory.*;
 import com.epam.rd.autotasks.springemployeecatalog.service.implemployeeservice.EmployeeServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +11,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
+
+    private static final String ALL = "all";
+    private static final String MANAGER = "manager";
+    private static final String DEPARTMENT = "department";
 
     private final EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
 
@@ -22,26 +27,11 @@ public class EmployeeController {
         }
         Paging paging = new Paging(Integer.valueOf(page), Integer.valueOf(size));
 
-        return chooseSortForAll(sort, paging);
-
+        ISortModeFactory sortFactory = createSortModeByEntity(ALL);
+        ISortMode sortMode = sortFactory.createSortMode();
+        return sortMode.getSort(sort, paging, null, null);
     }
 
-    private List<Employee> chooseSortForAll(String sort, Paging paging) {
-
-        switch (sort) {
-            case "lastName":
-                return employeeService.getAllSortBySurname(paging);
-            case "hired":
-                return employeeService.getAllSortByHireDate(paging);
-            case "position":
-                return employeeService.getAllSortByPosition(paging);
-            case "salary":
-                return employeeService.getAllSortBySalary(paging);
-
-            default:
-                throw new IllegalArgumentException("A non-existent sorting was obtained!");
-        }
-    }
 
     @GetMapping("/{employee_id}")
     public Employee getEmployeeById(@PathVariable("employee_id") Long employeeId,
@@ -60,23 +50,9 @@ public class EmployeeController {
                                                 @RequestParam("sort") String sort) {
         Paging paging = new Paging(Integer.valueOf(page), Integer.valueOf(size));
 
-        return chooseSortForManager(sort, managerId, paging);
-    }
-
-    private List<Employee> chooseSortForManager(String sort, Long managerId, Paging paging) {
-        switch (sort) {
-            case "lastName":
-                return employeeService.getByManagerSortBySurname(managerId, paging);
-            case "hired":
-                return employeeService.getByManagerSortByHireDate(managerId, paging);
-            case "position":
-                return employeeService.getByManagerSortByPosition(managerId, paging);
-            case "salary":
-                return employeeService.getByManagerSortBySalary(managerId, paging);
-
-            default:
-                throw new IllegalArgumentException("A non-existent sorting was obtained!");
-        }
+        ISortModeFactory sortFactory = createSortModeByEntity(MANAGER);
+        ISortMode sortMode = sortFactory.createSortMode();
+        return sortMode.getSort(sort, paging, managerId, null);
     }
 
     @GetMapping("/by_department/{department}")
@@ -86,22 +62,21 @@ public class EmployeeController {
                                                    @RequestParam("sort") String sort) {
         Paging paging = new Paging(Integer.valueOf(page), Integer.valueOf(size));
 
-        return chooseSortForDepartment(sort, department, paging);
+        ISortModeFactory sortFactory = createSortModeByEntity(DEPARTMENT);
+        ISortMode sortMode = sortFactory.createSortMode();
+        return sortMode.getSort(sort, paging, null, department);
     }
 
-    private List<Employee> chooseSortForDepartment(String sort, String department, Paging paging) {
-        switch (sort) {
-            case "lastName":
-                return employeeService.getByDepartmentSortBySurname(department, paging);
-            case "hired":
-                return employeeService.getByDepartmentSortByHireDate(department, paging);
-            case "position":
-                return employeeService.getByDepartmentSortByPosition(department, paging);
-            case "salary":
-                return employeeService.getByDepartmentSortBySalary(department, paging);
-
+    private ISortModeFactory createSortModeByEntity(String entity) {
+        switch (entity) {
+            case "all":
+                return new SortModeFactoryAll();
+            case "manager":
+                return new SortModeFactoryManager();
+            case "department":
+                return new SortModeFactoryDepartment();
             default:
-                throw new IllegalArgumentException("A non-existent sorting was obtained!");
+                throw new IllegalArgumentException("A non-existent entity was obtained!");
         }
     }
 }

@@ -12,40 +12,40 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> getAll() {
-        return factory.getAllEmployees(HolderQuery.SELECT_QUERY_SQL);
+        return factory.getAllEmployees(HolderQuery.SELECT_QUERY_SQL, false);
     }
 
     @Override
     public List<Employee> getAllSortBySurname(Paging paging) {
         return factory.employeePaging(
-                factory.getAllEmployees(HolderQuery.QUERY_ALL_BY_SURNAME),
+                factory.getAllEmployees(HolderQuery.QUERY_ALL_BY_SURNAME, false),
                 paging);
     }
 
     @Override
     public List<Employee> getAllSortByHireDate(Paging paging) {
         return factory.employeePaging(
-                factory.getAllEmployees(HolderQuery.QUERY_ALL_BY_HIRE_DATE),
+                factory.getAllEmployees(HolderQuery.QUERY_ALL_BY_HIRE_DATE, false),
                 paging);
     }
 
     @Override
     public List<Employee> getAllSortByPosition(Paging paging) {
         return factory.employeePaging(
-                factory.getAllEmployees(HolderQuery.QUERY_ALL_BY_POSITION),
+                factory.getAllEmployees(HolderQuery.QUERY_ALL_BY_POSITION, false),
                 paging);
     }
 
     @Override
     public List<Employee> getAllSortBySalary(Paging paging) {
         return factory.employeePaging(
-                factory.getAllEmployees(HolderQuery.QUERY_ALL_BY_SALARY),
+                factory.getAllEmployees(HolderQuery.QUERY_ALL_BY_SALARY, false),
                 paging);
     }
 
     @Override
     public Employee getById(Long employeeId) {
-        return factory.getAllEmployees(HolderQuery.SELECT_QUERY_SQL).stream()
+        return factory.getAllEmployees(HolderQuery.SELECT_QUERY_SQL, false).stream()
                 .filter(item -> item.getId().equals(employeeId))
                 .findAny()
                 .orElse(null);
@@ -53,7 +53,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee getByIdWithFullChain(Long employeeId) {
-        return factory.getAllEmployeesWithChain(HolderQuery.SELECT_QUERY_SQL).stream()
+        return factory.getAllEmployeesWithChain(HolderQuery.SELECT_QUERY_SQL, true).stream()
                 .filter(item -> item.getId().equals(employeeId))
                 .findAny()
                 .orElse(null);
@@ -115,20 +115,20 @@ public class EmployeeServiceImpl implements EmployeeService {
                 paging);
     }
 
-    private class HolderQuery {
+    public class HolderQuery {
 
         private static final String SELECT_QUERY_SQL =
                 "SELECT * " +
                         "FROM EMPLOYEE E " +
                         "LEFT JOIN DEPARTMENT D " +
                         "ON E.DEPARTMENT = D.ID ";
-        private static final String QUERY_ALL_BY_SURNAME =
+        public static final String QUERY_ALL_BY_SURNAME =
                 SELECT_QUERY_SQL + "ORDER BY E.LASTNAME";
-        private static final String QUERY_ALL_BY_HIRE_DATE =
+        public static final String QUERY_ALL_BY_HIRE_DATE =
                 SELECT_QUERY_SQL + "ORDER BY E.HIREDATE";
-        private static final String QUERY_ALL_BY_POSITION =
+        public static final String QUERY_ALL_BY_POSITION =
                 SELECT_QUERY_SQL + "ORDER BY E.POSITION";
-        private static final String QUERY_ALL_BY_SALARY =
+        public static final String QUERY_ALL_BY_SALARY =
                 SELECT_QUERY_SQL + "ORDER BY E.SALARY";
 
         private static final String QUERY_BY_MANAGER_BY_SURNAME =
